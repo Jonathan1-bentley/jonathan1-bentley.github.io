@@ -1,0 +1,11 @@
+like ping pong except digital keep the ball from flying of board
+2 boxes 1 board 1 ball no score
+p1/p2 score = 30 display p1/p2 with highest score
+if ball hits box bounce if ball =top/bottom of board bouce if ball past box 2 ad 1to p1 score and vise versa
+ball box board
+board
+box and ball
+keyboard
+changes posy of box1 or 2 
+if w pressed p1 box posy increased if up arrow pressed p2 box posy increased
+if s pressed p1 box posy down if down arrow pressed p2 box  posy down

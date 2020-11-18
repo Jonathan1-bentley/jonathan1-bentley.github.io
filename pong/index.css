@@ -1,0 +1,38 @@
+
+body {
+  background-color: darkgreen;
+}
+
+#board {
+  width: 440px;
+  height: 440px;
+  border: 1px solid white;
+  background-color: black;
+  position: relative;
+}
+
+#ball {
+  background-color: teal;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 100px;  /* Uncomment if you want to set a "starting" position */
+  top: 100px;   /* Uncomment if you want to set a "starting" position */
+}
+/*paddle 1 */
+#p1{
+    background-color: orangered;
+    width: 30px;
+    height: 100px;
+    position: absolute;
+    left: 50px;
+    top: 50px;
+}
+#p2{
+    background-color: purple;
+    width: 30px;
+    height: 100px;
+    position: absolute;
+    left: 350px;
+    top: 150px;
+}

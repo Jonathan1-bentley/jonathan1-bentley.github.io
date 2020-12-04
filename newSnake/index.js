@@ -19,7 +19,7 @@ var SQUARE_SIZE = $("#apple").width();  //
     // Game Item Objects
     
     var apple = {};
-    moveApple();
+    
     apple.x = 80;
     apple.y = 0; 
     apple.$element = $("#apple");
@@ -28,6 +28,15 @@ var SQUARE_SIZE = $("#apple").width();  //
     $(document).on('keydown',handleKeydown);                           // change 'eventType' to the type of event you want to handle
     var speedX= 0;
     var speedY= 0;
+
+    var snake = [
+        {}
+    ];
+    snake[0].x = 20;
+    snake[0].y = 20;
+
+    snake.push(makeSnake("#snake"+snake.length));
+    moveApple();
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
@@ -37,6 +46,7 @@ var SQUARE_SIZE = $("#apple").width();  //
   by calling this function and executing the code inside.
   */
     function newFrame() {
+
         repositionHead();
         redrawHead();
 
@@ -66,41 +76,35 @@ var SQUARE_SIZE = $("#apple").width();  //
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
     function repositionHead() {
-        positionX += speedX;
-        positionY += speedY;
+        for(i= snake.length-1; i>=1; i--){
+            snake[i].x = snake[i-1].x
+            snake[i].y = snake[i-1].y
+        }
+        positionx += speedX;
+        positiony += speedY;
     }
     function moveApple() {
         apple.x = randomInteger(BOARD_SIZE/SQUARE_SIZE)*SQUARE_SIZE;
         apple.y = randomInteger(BOARD_SIZE/SQUARE_SIZE)*SQUARE_SIZE;
         
-         for (var i = 0; i < snakeBody.length; i++){
+         for (var i = 0; i < snake.length; i++){
     
-            if ( doCollide(apple, snakeBody[i] )){
+            if ( doCollide(apple, snake[i] )){
                 moveApple();
                 break;
             }
         }
     }
-    
-    
-        var snake = [];
-        snake[0].x = 20;
-        snake[0].y = 20;
-        
-            function makeSnake(id){
-                var newPiece = {};
-                newPiece.id = id;
-                newPiece.width = $(".snake").width();        // sets width to 200
-                newPiece.height = $(".snake").height();
-                newPiece.x = snake[0].x -1;
-                return newPiece;
-            }       
-
-
-            snake.push(makeSnake("#snake"+snake.length));
-        }
-        
-    
+         
+    function makeSnake(id){
+        var newPiece = {};
+        newPiece.id = id;
+        newPiece.width = $(".snake").width();        // sets width to 200
+        newPiece.height = $(".snake").height();
+        newPiece.x = snake[0].x - 20;
+        newPiece.y = snake[0].y - 20;
+        return newPiece;
+    }       
     function randomInteger(max) {
         var randomInt = Math.floor(Math.random() * max);
         return randomInt;
@@ -117,6 +121,10 @@ var SQUARE_SIZE = $("#apple").width();  //
     function redrawHead() {
         $("#head").css("left", positionX);
         $("#head").css("top", positionY);
+        for(i= snake.length-1; i>=1; i--){
+            $(snake[i].id).css("left", snake[i].x);
+            $(snake[i].id).css("top", snake[i].y);
+        }
     }
     
     function endGame() {
@@ -126,3 +134,4 @@ var SQUARE_SIZE = $("#apple").width();  //
         // turn off event handlers
         $(document).off();
     }
+}

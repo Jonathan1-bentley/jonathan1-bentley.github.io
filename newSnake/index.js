@@ -49,25 +49,36 @@ var SQUARE_SIZE = $("#apple").width();  //
 
         repositionHead();
         redrawHead();
-
+    function doCollide(snakePiece, apple) {
+        if (snakePiece.x === apple.x && snakePiece.y === apple.y) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
+         }
   
   /* 
   Called in response to events.
   */
  
     function handleKeydown() {
-        if(event.which === key.s){
+        if(event.which === key.w){
+            speedX = 0
             speedY = -20;
         }
-        else if (event.which === key.w){
+        else if (event.which === key.s){
+            speedX = 0
             speedY = 20;
         }
         else if(event.which === key.a){
             speedX = -20;
+            speedY = 0;
         }
         else if (event.which === key.d){
             speedX = 20;
+            speedY = 0;
         }
     }
 
@@ -80,8 +91,8 @@ var SQUARE_SIZE = $("#apple").width();  //
             snake[i].x = snake[i-1].x
             snake[i].y = snake[i-1].y
         }
-        positionx += speedX;
-        positiony += speedY;
+        snake[0].x += speedX;
+        snake[0].y += speedY;
     }
     function moveApple() {
         apple.x = randomInteger(BOARD_SIZE/SQUARE_SIZE)*SQUARE_SIZE;
@@ -110,8 +121,8 @@ var SQUARE_SIZE = $("#apple").width();  //
         return randomInt;
     }
 
-    function doCollide(obj1, obj2) {
-        if (obj1.x === obj2.x && obj1.y === obj2.y) {
+    function doCollide(snakePiece, apple) {
+        if (snakePiece.x === apple.x && snakePiece.y === apple.y) {
             return true;
         }
         else {
@@ -119,8 +130,8 @@ var SQUARE_SIZE = $("#apple").width();  //
         }
     }
     function redrawHead() {
-        $("#head").css("left", positionX);
-        $("#head").css("top", positionY);
+        $("#head").css("left", snake[0].x);
+        $("#head").css("top", snake[0].y);
         for(i= snake.length-1; i>=1; i--){
             $(snake[i].id).css("left", snake[i].x);
             $(snake[i].id).css("top", snake[i].y);
